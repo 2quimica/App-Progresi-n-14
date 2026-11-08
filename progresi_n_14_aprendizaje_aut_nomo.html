@@ -1,0 +1,1824 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progresión 14: Energía, Reacciones Químicas y Respiración Celular</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #3730a3;
+            --primary-light: #e0e7ff;
+            --secondary: #0284c7;
+            --secondary-light: #e0f2fe;
+            --accent: #059669;
+            --accent-light: #d1fae5;
+            --warning: #d97706;
+            --warning-light: #fef3c7;
+            --danger: #dc2626;
+            --danger-light: #fee2e2;
+            --bg-main: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --border: #cbd5e1;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.55;
+            padding-bottom: 40px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: white;
+            padding: 16px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .header-subtitle {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #c7d2fe;
+            font-weight: 700;
+        }
+
+        .header-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 6px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background-color: #34d399;
+            transition: width 0.3s ease;
+        }
+
+        .step-indicator {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            margin-top: 4px;
+            color: #e0e7ff;
+            font-weight: 600;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 20px auto 0;
+            padding: 0 16px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+        }
+
+        h2 {
+            color: var(--primary-dark);
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        h3 {
+            color: var(--secondary);
+            font-size: 1.05rem;
+            margin: 16px 0 10px;
+        }
+
+        p {
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+            color: var(--text-main);
+        }
+
+        .micro-read {
+            background-color: #f1f5f9;
+            border-left: 4px solid var(--primary);
+            padding: 14px 16px;
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            margin: 14px 0;
+            font-size: 0.95rem;
+        }
+
+        .micro-read strong {
+            color: var(--primary-dark);
+        }
+
+        .math-block {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 12px 16px;
+            text-align: center;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin: 12px 0;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.03);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 14px 20px;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: var(--radius-md);
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+            touch-action: manipulation;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background-color: #e2e8f0;
+            color: var(--text-main);
+        }
+
+        .btn-secondary:hover {
+            background-color: #cbd5e1;
+        }
+
+        .btn-hint {
+            background-color: var(--warning-light);
+            color: var(--warning);
+            border: 1px solid #fcd34d;
+            padding: 8px 12px;
+            font-size: 0.85rem;
+            width: auto;
+            margin-top: 8px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .input-group {
+            margin-bottom: 16px;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 700;
+            font-size: 0.88rem;
+            margin-bottom: 6px;
+            color: var(--text-muted);
+        }
+
+        .input-group input, .input-group textarea, .input-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+            background-color: #fff;
+        }
+
+        .input-group input:focus, .input-group textarea:focus {
+            outline: 2px solid var(--primary);
+            border-color: transparent;
+        }
+
+        .option-card {
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 12px 16px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: white;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.95rem;
+        }
+
+        .option-card.selected {
+            border-color: var(--primary);
+            background-color: var(--primary-light);
+        }
+
+        .option-card.correct {
+            border-color: var(--accent);
+            background-color: var(--accent-light);
+            color: #065f46;
+        }
+
+        .option-card.incorrect {
+            border-color: var(--danger);
+            background-color: var(--danger-light);
+            color: #991b1b;
+        }
+
+        .feedback-box {
+            padding: 14px 16px;
+            border-radius: var(--radius-sm);
+            margin-top: 12px;
+            font-size: 0.92rem;
+            display: none;
+            line-height: 1.5;
+        }
+
+        .feedback-box.show {
+            display: block;
+        }
+
+        .feedback-box.correct {
+            background-color: var(--accent-light);
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+
+        .feedback-box.incorrect {
+            background-color: var(--danger-light);
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        .sim-container {
+            width: 100%;
+            background: #0f172a;
+            border-radius: var(--radius-md);
+            padding: 16px;
+            text-align: center;
+            color: white;
+            margin: 12px 0;
+            overflow: hidden;
+        }
+
+        .sim-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .sim-btn {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 10px 12px;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .sim-btn.active {
+            background: var(--primary);
+            border-color: var(--primary-light);
+        }
+
+        .matching-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 12px 0;
+        }
+
+        .drag-bank {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 12px;
+            background: #f1f5f9;
+            border-radius: var(--radius-sm);
+            min-height: 50px;
+            margin-bottom: 12px;
+        }
+
+        .chip {
+            background: white;
+            border: 1px solid var(--primary);
+            color: var(--primary-dark);
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            user-select: none;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .chip.selected {
+            background: var(--primary);
+            color: white;
+        }
+
+        .slot {
+            border: 2px dashed var(--border);
+            border-radius: var(--radius-sm);
+            padding: 10px;
+            min-height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            font-size: 0.85rem;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .slot.filled {
+            border-style: solid;
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .slot.correct-slot {
+            border-color: var(--accent);
+            background: var(--accent-light);
+        }
+
+        .slot.incorrect-slot {
+            border-color: var(--danger);
+            background: var(--danger-light);
+        }
+
+        .quiz-nav-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+
+        .quiz-nav-btn {
+            padding: 8px 0;
+            font-size: 0.85rem;
+            font-weight: 700;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            background: white;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .quiz-nav-btn.active {
+            border-color: var(--primary);
+            background: var(--primary-light);
+            color: var(--primary-dark);
+        }
+
+        .quiz-nav-btn.answered {
+            background: #e2e8f0;
+            color: var(--text-main);
+        }
+
+        .evidence-card {
+            background: #ffffff;
+            border: 3px solid var(--primary-dark);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+
+        .evidence-header {
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 12px;
+            margin-bottom: 16px;
+        }
+
+        .evidence-title {
+            color: var(--primary-dark);
+            font-size: 1.3rem;
+            font-weight: 900;
+        }
+
+        .evidence-badge {
+            background: var(--accent);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            display: inline-block;
+            margin-top: 4px;
+        }
+
+        .evidence-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            text-align: left;
+            margin: 16px 0;
+            background: #f8fafc;
+            padding: 14px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+        }
+
+        .evidence-item {
+            font-size: 0.88rem;
+        }
+
+        .evidence-item label {
+            display: block;
+            font-weight: 700;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .evidence-item val {
+            font-weight: 800;
+            color: var(--text-main);
+            font-size: 1rem;
+        }
+
+        .compact-code {
+            background: #0f172a;
+            color: #38bdf8;
+            font-family: monospace;
+            padding: 10px;
+            border-radius: var(--radius-sm);
+            font-size: 0.82rem;
+            word-break: break-all;
+            margin: 14px 0;
+            border: 1px dashed #0284c7;
+        }
+
+        .alert-whatsapp {
+            background-color: var(--accent-light);
+            color: #065f46;
+            border: 2px dashed var(--accent);
+            padding: 12px;
+            border-radius: var(--radius-md);
+            font-weight: 800;
+            font-size: 0.95rem;
+            margin-top: 16px;
+        }
+
+        .step-container {
+            display: none;
+        }
+
+        .step-container.active {
+            display: block;
+        }
+
+        svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .path-step-box {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+            margin: 14px 0;
+        }
+
+        .path-step {
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 8px 4px;
+            text-align: center;
+            cursor: pointer;
+            background: white;
+            font-size: 0.75rem;
+            transition: all 0.2s;
+        }
+
+        .path-step.selected {
+            border-color: var(--primary);
+            background: var(--primary-light);
+            font-weight: bold;
+        }
+
+        .sequence-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin: 14px 0;
+        }
+
+        .sequence-item {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.9rem;
+        }
+
+        .move-btns {
+            display: flex;
+            gap: 4px;
+        }
+
+        .move-btn {
+            background: #e2e8f0;
+            border: none;
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="header-subtitle">FÍSICA • APRENDIZAJE AUTÓNOMO A DISTANCIA</div>
+            <div class="header-title">PROGRESIÓN 14: Energía, Reacciones Químicas y Respiración Celular</div>
+            <div class="progress-bar-container">
+                <div class="progress-bar-fill" id="progressBar"></div>
+            </div>
+            <div class="step-indicator">
+                <span id="stepText">Inicio</span>
+                <span id="timerDisplay">Tiempo Activo: 00:00</span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- STEP 0: REGISTRO -->
+        <div class="step-container active" id="step0">
+            <div class="card">
+                <h2>👋 Bienvenida y Registro</h2>
+                <p><strong>LA ENERGÍA EN LOS PROCESOS DE LA VIDA DIARIA — PROGRESIÓN 14</strong></p>
+                
+                <div class="micro-read">
+                    "En esta actividad estudiarás cómo las <strong>reacciones químicas</strong> permiten transferir y transformar energía dentro de los organismos vivos. Descubrirás cómo la <strong>respiración celular</strong> procesa la energía contenida en las moléculas de los alimentos para alimentar el <strong>trabajo muscular</strong> y mantener la <strong>temperatura corporal</strong> a pesar de la continua pérdida de calor hacia el entorno. Trabaja a tu ritmo, experimenta con las simulaciones y utiliza las pistas cuando lo requieras."
+                </div>
+
+                <div class="input-group">
+                    <label for="inputName">Nombre completo del estudiante *</label>
+                    <input type="text" id="inputName" placeholder="Ej. Ana Lucía Mendoza Pérez" autocomplete="off">
+                </div>
+
+                <div class="input-group">
+                    <label for="inputGroup">Grupo *</label>
+                    <input type="text" id="inputGroup" placeholder="Ej. 4° A" autocomplete="off">
+                </div>
+
+                <div class="micro-read" style="border-left-color: var(--accent);">
+                    📌 <strong>Trabajo Autónomo a Distancia:</strong> Tu profesor atenderá comisiones académicas. La aplicación guiará tu proceso paso a paso, analizará tu desempeño de forma autónoma y registrará tus avances.
+                </div>
+
+                <button class="btn btn-primary" onclick="startSession()">🚀 COMENZAR MI SESIÓN</button>
+            </div>
+        </div>
+
+        <!-- STEP 1: ENGANCHA -->
+        <div class="step-container" id="step1">
+            <div class="card">
+                <h2>1. ENGANCHA: ¿De dónde sale la energía de nuestro cuerpo?</h2>
+                <p>Considera la siguiente cadena de eventos cotidianos:</p>
+
+                <div class="path-step-box">
+                    <div class="path-step selected" id="pstep1" onclick="selectEngageStep(1)">
+                        <div style="font-size:1.4rem;">🍎</div>
+                        <strong>1. Alimento</strong>
+                    </div>
+                    <div class="path-step" id="pstep2" onclick="selectEngageStep(2)">
+                        <div style="font-size:1.4rem;">🧪</div>
+                        <strong>2. Moléculas</strong>
+                    </div>
+                    <div class="path-step" id="pstep3" onclick="selectEngageStep(3)">
+                        <div style="font-size:1.4rem;">⚙️</div>
+                        <strong>3. Respiración</strong>
+                    </div>
+                    <div class="path-step" id="pstep4" onclick="selectEngageStep(4)">
+                        <div style="font-size:1.4rem;">🏃</div>
+                        <strong>4. Músculo</strong>
+                    </div>
+                    <div class="path-step" id="pstep5" onclick="selectEngageStep(5)">
+                        <div style="font-size:1.4rem;">🔥</div>
+                        <strong>5. Calor</strong>
+                    </div>
+                </div>
+
+                <div id="engageStepDesc" class="micro-read">
+                    <strong>🍎 1. Consumo de Alimentos:</strong> Al ingerir materia orgánica (como carbohidratos), obtenemos nutrientes que almacenan energía química en sus enlaces moleculares.
+                </div>
+
+                <h3>❓ Pregunta Analítica de Predicción</h3>
+                <p>¿Cómo puede la energía química contenida en una manzana o plato de comida terminar manifestándose como <strong>trabajo mecánico muscular</strong> y <strong>calor corporal</strong>?</p>
+
+                <div id="optsEngage">
+                    <div class="option-card" onclick="checkEngage(1, this)">
+                        <span>A) El estómago quema los alimentos mediante fuego interno y el humo empuja directamente a los músculos.</span>
+                    </div>
+                    <div class="option-card" onclick="checkEngage(2, this)">
+                        <span>B) A través de reacciones químicas celulares (respiración celular) que transfieren energía a moléculas transportadoras (ATP) y disipan energía térmica.</span>
+                    </div>
+                    <div class="option-card" onclick="checkEngage(3, this)">
+                        <span>C) Los músculos absorben la luz solar directamente de la piel sin necesidad de transformar moléculas químicas.</span>
+                    </div>
+                </div>
+                <button class="btn btn-hint" onclick="useHint('Engancha: Las células no usan fuego ni luz directa; transforman moléculas orgánicas como la glucosa en un proceso químico interno.')">💡 Necesito una pista</button>
+
+                <div class="feedback-box" id="fbEngage"></div>
+
+                <h3>🫁 vs 🧬 Clasificación: Respiración Pulmonar vs Respiración Celular</h3>
+                <p>Asigna cada característica al concepto adecuado (toca un elemento del banco y luego su casilla):</p>
+
+                <div class="drag-bank" id="chipBankResp">
+                    <div class="chip" onclick="selectRespChip(this, 'Intercambio gaseoso en pulmones')">Intercambio gaseoso en pulmones</div>
+                    <div class="chip" onclick="selectRespChip(this, 'Reacción química mitocondrial')">Reacción química mitocondrial</div>
+                    <div class="chip" onclick="selectRespChip(this, 'Inhalación de O₂ y exhalación de CO₂')">Inhalación de O₂ y exhalación de CO₂</div>
+                    <div class="chip" onclick="selectRespChip(this, 'Transferencia de energía a ATP')">Transferencia de energía a ATP</div>
+                </div>
+
+                <div class="matching-grid">
+                    <div>
+                        <strong>Respiración Organísmica (Mecánica)</strong>
+                        <div class="slot" id="slotRespOrg" onclick="assignRespSlot(this, 'Intercambio gaseoso en pulmones')">Toca para asignar</div>
+                    </div>
+                    <div>
+                        <strong>Respiración Celular (Química)</strong>
+                        <div class="slot" id="slotRespCel" onclick="assignRespSlot(this, 'Reacción química mitocondrial')">Toca para asignar</div>
+                    </div>
+                </div>
+                <button class="btn btn-secondary" onclick="checkRespMatching()">COMPROBAR CLASIFICACIÓN</button>
+                <div class="feedback-box" id="fbResp"></div>
+
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="goToStep(2)">Continuar a 2. EXPLORA ➡️</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 2: EXPLORA -->
+        <div class="step-container" id="step2">
+            <div class="card">
+                <h2>2. EXPLORA: Reacciones Químicas y El Mito del Enlace</h2>
+                
+                <div class="micro-read">
+                    <strong>⚠️ Aclaración Científica Crucial (El Mito de Romper Enlaces):</strong><br>
+                    En la enseñanza básica suele afirmarse erróneamente que "romper enlaces libera energía". ¡Esto es falso!<br>
+                    • <strong>Romper enlaces químicos SIEMPRE REQUIERE ENERGÍA</strong> (es un proceso endotérmico).<br>
+                    • <strong>Formar nuevos enlaces químicos SIEMPRE LIBERA ENERGÍA</strong> (es un proceso exotérmico).<br><br>
+                    La liberación neta de energía en una reacción química (como la respiración celular) ocurre porque la <strong>energía liberada al formarse los nuevos enlaces de los productos (CO₂ y H₂O) es MAYOR</strong> que la energía consumida para romper los enlaces de los reactivos (Glucosa y O₂).
+                </div>
+
+                <h3>🧪 Simulación 2: Balance Energético de la Respiración Celular</h3>
+                <p>La ecuación química global de la respiración celular aerobia es:</p>
+
+                <div class="math-block">
+                    C<sub>6</sub>H<sub>12</sub>O<sub>6</sub> + 6 O<sub>2</sub> &nbsp;➔&nbsp; 6 CO<sub>2</sub> + 6 H<sub>2</sub>O + Energía (ATP + Calor)
+                </div>
+
+                <div class="sim-container">
+                    <div style="font-size:0.9rem; margin-bottom:10px;">
+                        Visualizador de Transformación Molecular
+                    </div>
+
+                    <svg viewBox="0 0 380 150" width="100%" height="150">
+                        <!-- REACTANTS SIDE -->
+                        <g id="simReactants" opacity="1">
+                            <rect x="20" y="30" width="140" height="90" fill="#334155" rx="6" stroke="#0284c7" stroke-width="2"/>
+                            <text x="90" y="55" fill="#38bdf8" font-size="12" font-weight="bold" text-anchor="middle">REACTIVOS</text>
+                            <text x="90" y="75" fill="#fff" font-size="11" text-anchor="middle">Glucosa (C₆H₁₂O₆)</text>
+                            <text x="90" y="95" fill="#fff" font-size="11" text-anchor="middle">+ 6 Oxígenos (O₂)</text>
+                        </g>
+
+                        <!-- ARROW -->
+                        <path d="M 175 75 L 205 75" stroke="#fbbf24" stroke-width="4" marker-end="url(#arrowGen)"/>
+                        <defs>
+                            <marker id="arrowGen" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                <path d="M 0 0 L 10 5 L 0 10 z" fill="#fbbf24" />
+                            </marker>
+                        </defs>
+
+                        <!-- PRODUCTS SIDE -->
+                        <g id="simProducts" opacity="0.4">
+                            <rect x="220" y="30" width="140" height="90" fill="#334155" rx="6" stroke="#059669" stroke-width="2"/>
+                            <text x="290" y="52" fill="#34d399" font-size="12" font-weight="bold" text-anchor="middle">PRODUCTOS</text>
+                            <text x="290" y="70" fill="#fff" font-size="10" text-anchor="middle">6 CO₂ + 6 H₂O</text>
+                            <text x="290" y="90" fill="#fbbf24" font-size="11" font-weight="bold" text-anchor="middle">+ ATP (Trabajo)</text>
+                            <text x="290" y="106" fill="#ef4444" font-size="11" font-weight="bold" text-anchor="middle">+ Calor (Térmica)</text>
+                        </g>
+                    </svg>
+
+                    <div class="sim-controls" style="grid-template-columns: 1fr;">
+                        <button class="sim-btn active" id="btnSim2React" onclick="triggerChemicalReaction()">⚡ EJECUTAR REACCIÓN Y REORDENAR ENLACES</button>
+                    </div>
+                    <div id="sim2Status" style="font-size:0.85rem; margin-top:8px; color:#cbd5e1;">
+                        Estado: Reactivos con energía potencial química en sus enlaces.
+                    </div>
+                </div>
+
+                <h3>🧩 Actividad: Relaciona la Magnitud / Molécula con su Función</h3>
+                <p>Toca un elemento del banco y asígnalo a su recuadro:</p>
+
+                <div class="drag-bank" id="chipBankMol">
+                    <div class="chip" onclick="selectChip(this, 'Glucosa (C₆H₁₂O₆)')">Glucosa (C₆H₁₂O₆)</div>
+                    <div class="chip" onclick="selectChip(this, 'Oxígeno (O₂)')">Oxígeno (O₂)</div>
+                    <div class="chip" onclick="selectChip(this, 'ATP (Adenosín Trifosfato)')">ATP (Adenosín Trifosfato)</div>
+                    <div class="chip" onclick="selectChip(this, 'Dióxido de Carbono (CO₂)')">Dióxido de Carbono (CO₂)</div>
+                </div>
+
+                <div class="matching-grid">
+                    <div>
+                        <strong>1. Combustible Orgánico Principal</strong>
+                        <div class="slot" id="slotGlu" onclick="assignSlot(this, 'Glucosa (C₆H₁₂O₆)')">Toca para asignar</div>
+                    </div>
+                    <div>
+                        <strong>2. Reactivo Inhalado / Aceptor Final</strong>
+                        <div class="slot" id="slotO2" onclick="assignSlot(this, 'Oxígeno (O₂)')">Toca para asignar</div>
+                    </div>
+                    <div>
+                        <strong>3. Molécula Transportadora de Energía Usable</strong>
+                        <div class="slot" id="slotATP" onclick="assignSlot(this, 'ATP (Adenosín Trifosfato)')">Toca para asignar</div>
+                    </div>
+                    <div>
+                        <strong>4. Producto de Desecho Exhalado</strong>
+                        <div class="slot" id="slotCO2" onclick="assignSlot(this, 'Dióxido de Carbono (CO₂)')">Toca para asignar</div>
+                    </div>
+                </div>
+
+                <button class="btn btn-secondary" onclick="checkMolMatching()">COMPROBAR MOLECULAS</button>
+                <button class="btn btn-hint" onclick="useHint('Explora: La glucosa es el combustible, el oxígeno es el reactivo oxidante, el ATP transporta la energía a la célula y el CO₂ se exhala.')">💡 Necesito una pista</button>
+
+                <div class="feedback-box" id="fbMol"></div>
+
+                <div class="btn-group">
+                    <button class="btn btn-secondary" onclick="goToStep(1)">⬅️ Anterior</button>
+                    <button class="btn btn-primary" onclick="goToStep(3)">Continuar a 3. COMPRENDE ➡️</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 3: COMPRENDE -->
+        <div class="step-container" id="step3">
+            <div class="card">
+                <h2>3. COMPRENDE: Respiración Celular, Mitocondria y Termorregulación</h2>
+                
+                <div class="micro-read">
+                    <strong>Las 3 Etapas de la Respiración Celular:</strong><br>
+                    1. <strong>Glucólisis (en el Citosol):</strong> Ocurre fuera de la mitocondria. La glucosa se degrada en 2 moléculas de ácido pirúvico, generando una pequeña cantidad directa de ATP.<br>
+                    2. <strong>Ciclo de Krebs (en la Matriz Mitocondrial):</strong> Se procesa el piruvato liberando CO₂ y transfiriendo electrones de alta energía a moléculas transportadoras.<br>
+                    3. <strong>Cadena de Transporte de Electrones y Fosforilación Oxidativa (en la Membrana Interna Mitocondrial):</strong> Con la participación del O₂, se genera la mayor abundancia de ATP celular.
+                </div>
+
+                <h3>🔬 Diagrama Anatómico Celular</h3>
+                <div class="sim-container">
+                    <svg viewBox="0 0 380 180" width="100%" height="180">
+                        <!-- Cell Body -->
+                        <ellipse cx="190" cy="90" rx="170" ry="75" fill="#1e293b" stroke="#38bdf8" stroke-width="2" stroke-dasharray="4"/>
+                        <text x="60" y="40" fill="#38bdf8" font-size="11" font-weight="bold">Citosol (Etapa 1: Glucólisis)</text>
+
+                        <!-- Mitochondria -->
+                        <g id="simMitoGroup" onclick="highlightMitoStage()" style="cursor:pointer;">
+                            <ellipse cx="220" cy="95" rx="90" ry="45" fill="#065f46" stroke="#34d399" stroke-width="3"/>
+                            <!-- Inner folds / cristae -->
+                            <path d="M 150 95 Q 170 75 190 95 T 230 95 T 270 95 T 290 95" fill="none" stroke="#a7f3d0" stroke-width="2"/>
+                            <text x="220" y="90" fill="#fff" font-size="12" font-weight="bold" text-anchor="middle">MITOCONDRIA</text>
+                            <text x="220" y="110" fill="#e0f2fe" font-size="10" text-anchor="middle">(Etapas 2 y 3: Krebs y Cadena)</text>
+                        </g>
+                    </svg>
+                    <div id="simMitoText" style="font-size:0.85rem; color:#cbd5e1; margin-top:6px;">
+                        Toca la mitocondria para observar la central energética de la célula eucariota.
+                    </div>
+                </div>
+
+                <h3>🌡️ Temperatura Corporal y Transferencia al Entorno</h3>
+                <div class="micro-read" style="border-left-color: var(--secondary);">
+                    <strong>Organismos Endotermos (Mamíferos y Aves):</strong><br>
+                    No toda la energía de la glucosa se convierte en ATP para trabajo muscular; una fracción sustancial se libera como <strong>energía térmica (calor)</strong>.<br>
+                    Este calor es vital para mantener la <strong>homeostasis</strong> y una temperatura corporal constante (aprox. 36.5 °C en humanos), compensando la <strong>continua transferencia inevitable de calor hacia el entorno frío</strong>. Si el ambiente es frío, el cuerpo incrementa su tasa metabólica para producir más calor.
+                </div>
+
+                <h3>❓ Clarificación Conceptual sobre el ATP</h3>
+                <p>¿Cuál de las siguientes afirmaciones describe de manera precisa qué es el ATP?</p>
+
+                <div id="optsATP">
+                    <div class="option-card" onclick="checkATP(1, this)">
+                        <span>A) El ATP es energía pura intangible que flota libremente sin átomos ni masa.</span>
+                    </div>
+                    <div class="option-card" onclick="checkATP(2, this)">
+                        <span>B) El ATP es una molécula química que almacena y transporta energía en sus enlaces para ser utilizada en funciones celulares.</span>
+                    </div>
+                    <div class="option-card" onclick="checkATP(3, this)">
+                        <span>C) El ATP es una molécula de gas oxígeno comprimido en los pulmones.</span>
+                    </div>
+                </div>
+
+                <div class="feedback-box" id="fbATP"></div>
+
+                <h3>⚖️ Afirmaciones de Comprobación Conceptual</h3>
+                <div id="tfContainer">
+                    <div style="margin-bottom:14px;">
+                        <p><strong>1. "La respiración celular libera la energía térmica necesaria para mantener la temperatura corporal constante a pesar de la pérdida continua de calor al entorno."</strong></p>
+                        <button class="btn btn-secondary" style="width:auto; display:inline-block; padding:8px 16px;" onclick="checkTF(1, true)">Correcta</button>
+                        <button class="btn btn-secondary" style="width:auto; display:inline-block; padding:8px 16px;" onclick="checkTF(1, false)">Necesita Corrección</button>
+                        <div class="feedback-box" id="fbTF1"></div>
+                    </div>
+
+                    <div style="margin-bottom:14px;">
+                        <p><strong>2. "Toda la energía contenida en la glucosa se transforma con un 100% de eficiencia en movimiento muscular, sin producir calor."</strong></p>
+                        <button class="btn btn-secondary" style="width:auto; display:inline-block; padding:8px 16px;" onclick="checkTF(2, true)">Correcta</button>
+                        <button class="btn btn-secondary" style="width:auto; display:inline-block; padding:8px 16px;" onclick="checkTF(2, false)">Necesita Corrección</button>
+                        <div class="feedback-box" id="fbTF2"></div>
+                    </div>
+                </div>
+
+                <button class="btn btn-hint" onclick="useHint('Comprende: El ATP es una molécula física. Ningún proceso termodinámico es 100% eficiente; parte de la energía siempre se disipa como calor.')">💡 Necesito una pista</button>
+
+                <div class="btn-group">
+                    <button class="btn btn-secondary" onclick="goToStep(2)">⬅️ Anterior</button>
+                    <button class="btn btn-primary" onclick="goToStep(4)">Continuar a 4. ORGANIZA ➡️</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 4: ORGANIZA -->
+        <div class="step-container" id="step4">
+            <div class="card">
+                <h2>4. ORGANIZA: Mapa Conceptual Táctil P14</h2>
+                <p>Organiza la red de conceptos clave de la Progresión 14. Toca un término del banco y luego su casilla correspondiente:</p>
+
+                <div class="drag-bank" id="mapBank">
+                    <div class="chip" onclick="selectMapChip(this, 'Reacción Química')">Reacción Química</div>
+                    <div class="chip" onclick="selectMapChip(this, 'Glucosa y Oxígeno')">Glucosa y Oxígeno</div>
+                    <div class="chip" onclick="selectMapChip(this, 'Respiración Celular')">Respiración Celular</div>
+                    <div class="chip" onclick="selectMapChip(this, 'ATP')">ATP</div>
+                    <div class="chip" onclick="selectMapChip(this, 'Trabajo Muscular')">Trabajo Muscular</div>
+                    <div class="chip" onclick="selectMapChip(this, 'Calor y Temperatura')">Calor y Temperatura</div>
+                </div>
+
+                <div style="display:flex; flex-direction:column; gap:12px; margin:16px 0;">
+                    <div class="slot" id="mapSlot1" onclick="assignMapSlot(this, 'Reacción Química')">
+                        1. Proceso de transformación donde se rompen y forman enlaces entre moléculas ➔ [ Vacío ]
+                    </div>
+                    <div class="slot" id="mapSlot2" onclick="assignMapSlot(this, 'Glucosa y Oxígeno')">
+                        2. Reactivos principales que interactúan para iniciar la respiración celular ➔ [ Vacío ]
+                    </div>
+                    <div class="slot" id="mapSlot3" onclick="assignMapSlot(this, 'Respiración Celular')">
+                        3. Proceso bioquímico mitocondrial que transfiere energía a nivel celular ➔ [ Vacío ]
+                    </div>
+                    <div class="slot" id="mapSlot4" onclick="assignMapSlot(this, 'ATP')">
+                        4. Molécula portadora de energía utilizable por los sistemas biológicos ➔ [ Vacío ]
+                    </div>
+                    <div class="slot" id="mapSlot5" onclick="assignMapSlot(this, 'Trabajo Muscular')">
+                        5. Aplicación mecánica donde el ATP permite la contracción de fibras ➔ [ Vacío ]
+                    </div>
+                    <div class="slot" id="mapSlot6" onclick="assignMapSlot(this, 'Calor y Temperatura')">
+                        6. Subproducto térmico que regula la homeostasis frente al entorno frío ➔ [ Vacío ]
+                    </div>
+                </div>
+
+                <button class="btn btn-secondary" onclick="checkConceptMap()">VERIFICAR MAPA CONCEPTUAL</button>
+                <button class="btn btn-hint" onclick="useHint('Organiza: Revisa las funciones: Glucosa/O₂ son los reactivos, el ATP financia el trabajo muscular y el calor regula la temperatura.')">💡 Necesito una pista</button>
+
+                <div class="feedback-box" id="fbMap"></div>
+
+                <div class="btn-group">
+                    <button class="btn btn-secondary" onclick="goToStep(3)">⬅️ Anterior</button>
+                    <button class="btn btn-primary" onclick="goToStep(5)">Continuar a 5. APLICA ➡️</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 5: APLICA -->
+        <div class="step-container" id="step5">
+            <div class="card">
+                <h2>5. APLICA: Trabajo Muscular, Ejercicio y Transferencia al Entorno</h2>
+                
+                <h3>🏃‍♂️ Mini-Reto: El Metabolismo Durante la Actividad Física</h3>
+                <p>Ordena secuencialmente los eventos que ocurren cuando un atleta pasa del <strong>reposo a una carrera intensa</strong> (utiliza los botones subir/bajar):</p>
+
+                <div class="sequence-list" id="seqList">
+                    <div class="sequence-item" data-id="3">
+                        <span>Aumento del consumo de O₂ y glucosa en células musculares</span>
+                        <div class="move-btns">
+                            <button class="move-btn" onclick="moveSeq(this, -1)">▲</button>
+                            <button class="move-btn" onclick="moveSeq(this, 1)">▼</button>
+                        </div>
+                    </div>
+                    <div class="sequence-item" data-id="1">
+                        <span>Inicio de contracción muscular acelerada por demandas de movimiento</span>
+                        <div class="move-btns">
+                            <button class="move-btn" onclick="moveSeq(this, -1)">▲</button>
+                            <button class="move-btn" onclick="moveSeq(this, 1)">▼</button>
+                        </div>
+                    </div>
+                    <div class="sequence-item" data-id="2">
+                        <span>Consumo acelerado de moléculas de ATP en las fibras musculares</span>
+                        <div class="move-btns">
+                            <button class="move-btn" onclick="moveSeq(this, -1)">▲</button>
+                            <button class="move-btn" onclick="moveSeq(this, 1)">▼</button>
+                        </div>
+                    </div>
+                    <div class="sequence-item" data-id="4">
+                        <span>Incremento de respiración celular y liberación de calor (sudoración para disipar al entorno)</span>
+                        <div class="move-btns">
+                            <button class="move-btn" onclick="moveSeq(this, -1)">▲</button>
+                            <button class="move-btn" onclick="moveSeq(this, 1)">▼</button>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-secondary" onclick="checkSequence()">VERIFICAR SECUENCIA METABÓLICA</button>
+                <div class="feedback-box" id="fbSeq"></div>
+
+                <h3>🧮 Caso de Aplicación: Rendimiento Energético Celular</h3>
+                <div class="micro-read">
+                    Durante una sesión de entrenamiento, las células musculares de un estudiante consumen <strong>100 Joules</strong> de energía provenientes de la degradación de la glucosa.<br>
+                    Si <strong>40 Joules</strong> se aprovechan efectivamente como trabajo mecánico de contracción (ATP) y los restantes <strong>60 Joules</strong> se disipan como energía térmica (calor):<br><br>
+                    ¿Qué porcentaje de la energía se transfirió como <strong>calor para regulación térmica</strong>?
+                </div>
+
+                <div class="input-group">
+                    <label for="inputCalc1">Introduce el porcentaje calculado (%):</label>
+                    <input type="text" id="inputCalc1" placeholder="Ej. 60">
+                </div>
+                <button class="btn btn-secondary" onclick="checkCalc1()">VERIFICAR CÁLCULO</button>
+
+                <div class="feedback-box" id="fbCalc1"></div>
+
+                <button class="btn btn-hint" onclick="useHint('Aplica: Divide 60 Joules de calor entre 100 Joules totales = 0.60, equivalente al 60%.')">💡 Necesito una pista</button>
+
+                <div class="btn-group" style="margin-top:20px;">
+                    <button class="btn btn-secondary" onclick="goToStep(4)">⬅️ Anterior</button>
+                    <button class="btn btn-primary" onclick="goToStep(6)">Continuar a 6. COMPRUEBA (TEST FINAL) ➡️</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 6: COMPRUEBA (TEST FINAL) -->
+        <div class="step-container" id="step6">
+            <div class="card">
+                <h2>6. COMPRUEBA: Evaluación Formativa P14</h2>
+                <p>Responde los <strong>10 reactivos de opción múltiple</strong> basados en las fuentes oficiales. Tu calificación se generará al entregar el test.</p>
+
+                <div class="quiz-nav-grid" id="quizNavGrid"></div>
+
+                <div id="quizQuestionBox" style="min-height: 200px;">
+                    <!-- Question rendered dynamically -->
+                </div>
+
+                <div class="btn-group" style="margin-top: 14px;">
+                    <button class="btn btn-secondary" id="btnQuizPrev" onclick="navQuiz(-1)">⬅️ Anterior</button>
+                    <button class="btn btn-secondary" id="btnQuizNext" onclick="navQuiz(1)">Siguiente ➡️</button>
+                </div>
+
+                <div style="margin-top: 20px;" id="submitQuizContainer">
+                    <button class="btn btn-primary" id="btnSubmitQuiz" onclick="submitQuiz()" disabled style="opacity: 0.5;">
+                        📋 ENTREGAR EVALUACIÓN FINAL
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 7: REFLEXIONA Y EVIDENCIA -->
+        <div class="step-container" id="step7">
+            <div class="card">
+                <h2>7. REFLEXIONA Y REGISTRO DE EVIDENCIA</h2>
+                
+                <div class="input-group">
+                    <label for="reflectionText">En tus propias palabras: ¿Cómo se relacionan las reacciones químicas, la respiración celular, el trabajo muscular y la temperatura corporal con la transferencia de energía? * (Mínimo 30 caracteres)</label>
+                    <textarea id="reflectionText" rows="3" placeholder="Escribe tu reflexión aquí..." oninput="validateReflection()"></textarea>
+                    <div id="reflectionLength" style="font-size:0.75rem; color:var(--text-muted); text-align:right;">0 / 30 caracteres</div>
+                </div>
+
+                <h3>📊 Preguntas de Percepción de Aprendizaje</h3>
+
+                <div class="input-group">
+                    <label for="perc1">1. Esta App me ayudó a comprender los contenidos de la Progresión 14:</label>
+                    <select id="perc1">
+                        <option value="4">4 — Mucho</option>
+                        <option value="3" selected>3 — Bastante</option>
+                        <option value="2">2 — Poco</option>
+                        <option value="1">1 — Nada o casi nada</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="perc2">2. Pude trabajar con esta App de manera autónoma sin necesitar al profesor a mi lado:</label>
+                    <select id="perc2">
+                        <option value="4" selected>4 — Totalmente</option>
+                        <option value="3">3 — En gran parte</option>
+                        <option value="2">2 — Con algunas dificultades</option>
+                        <option value="1">1 — Me resultó muy difícil</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-primary" id="btnGenerateCard" onclick="generateEvidenceCard()" disabled>
+                    🎓 GENERAR TARJETA DE EVIDENCIA FINAL
+                </button>
+            </div>
+
+            <!-- EVIDENCIA FINAL -->
+            <div id="evidenceDisplayContainer" style="display:none; margin-top:20px;">
+                <div class="evidence-card" id="evidenceCard">
+                    <div class="evidence-header">
+                        <div class="evidence-title">✅ PROGRESIÓN 14 COMPLETADA</div>
+                        <p style="font-size:0.85rem; color:var(--text-muted); margin:4px 0 0 0;">LA ENERGÍA EN LOS PROCESOS DE LA VIDA DIARIA</p>
+                        <div class="evidence-badge">REACCIONES QUÍMICAS Y RESPIRACIÓN CELULAR</div>
+                    </div>
+
+                    <div class="evidence-grid">
+                        <div class="evidence-item">
+                            <label>Estudiante</label>
+                            <val id="evName">---</val>
+                        </div>
+                        <div class="evidence-item">
+                            <label>Grupo</label>
+                            <val id="evGroup">---</val>
+                        </div>
+                        <div class="evidence-item">
+                            <label>Resultado Evaluación</label>
+                            <val id="evScore">0 / 10 (0%)</val>
+                        </div>
+                        <div class="evidence-item">
+                            <label>Nivel Obtenido</label>
+                            <val id="evLevel">---</val>
+                        </div>
+                        <div class="evidence-item">
+                            <label>Tiempo Activo</label>
+                            <val id="evTime">00 min 00 s</val>
+                        </div>
+                        <div class="evidence-item">
+                            <label>Intentos Corrección (IC)</label>
+                            <val id="evErrors">0</val>
+                        </div>
+                        <div class="evidence-item">
+                            <label>Pistas Utilizadas (P)</label>
+                            <val id="evHints">0</val>
+                        </div>
+                        <div class="evidence-item">
+                            <label>Percepción Compren. / Autonom.</label>
+                            <val id="evPerception">C: 4/4 | A: 4/4</val>
+                        </div>
+                        <div class="evidence-item" style="grid-column: span 2;">
+                            <label>Fecha y Hora de Término</label>
+                            <val id="evDate">---</val>
+                        </div>
+                    </div>
+
+                    <div style="text-align:left; font-size:0.82rem; background:#f1f5f9; padding:10px; border-radius:8px; margin-bottom:12px;">
+                        <strong>SÍNTESIS DEL ESTUDIANTE:</strong>
+                        <p id="evReflection" style="font-style:italic; margin:4px 0 0 0; color:#334155;"></p>
+                    </div>
+
+                    <div class="compact-code" id="evCompactLine">
+                        📊 REGISTRO DE ACTIVIDAD: P14 | 0/10 | 0% | 00:00 | IC:0 | P:0 | C:0/4 | A:0/4
+                    </div>
+
+                    <div class="alert-whatsapp">
+                        📸 TOMA UNA CAPTURA DE ESTA PANTALLA Y ENVÍALA A TU PROFESOR POR WHATSAPP.
+                    </div>
+                </div>
+
+                <div style="margin-top:16px;">
+                    <button class="btn btn-secondary" onclick="reviewQuizAnswers()">🔍 REVISAR MIS RESPUESTAS DEL TEST</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        /* ESTADO GLOBAL DE LA APP Y ANALÍTICAS ESTANDARIZADAS */
+        let studentName = "";
+        let studentGroup = "";
+        let currentStep = 0;
+        
+        let activeTimeSeconds = 0;
+        let timerInterval = null;
+        
+        let formativeErrors = 0; // Intentos de Corrección (IC)
+        let hintsUsed = 0; // Pistas Utilizadas (P)
+
+        let selectedChipText = null;
+        let selectedChipElem = null;
+
+        let selectedRespChipText = null;
+        let selectedRespChipElem = null;
+
+        let selectedMapChipText = null;
+        let selectedMapChipElem = null;
+
+        // 10 REACTIVOS EXCLUSIVOS Y RIGUROSOS DE LA PROGRESIÓN 14
+        const quizQuestions = [
+            {
+                q: "1. De acuerdo con la Progresión 14, como resultado de las reacciones químicas la energía puede:",
+                options: [
+                    "A) Desaparecer completamente del universo sin dejar rastro.",
+                    "B) Transferirse de un sistema de moléculas en interacción a otro.",
+                    "C) Crearse a partir de la nada dentro de la célula.",
+                    "D) Convertirse únicamente en fuerza magnética de atracción."
+                ],
+                correct: 1,
+                exp: "La idea central de P14 establece que las reacciones químicas permiten transferir energía entre sistemas de moléculas en interacción."
+            },
+            {
+                q: "2. Respecto al balance energético en una reacción química como la respiración celular, ¿cuál afirmación es correcta?",
+                options: [
+                    "A) Romper enlaces libera energía y formar enlaces requiere energía.",
+                    "B) Romper enlaces siempre requiere energía; la liberación neta ocurre porque la energía liberada al formar los nuevos productos es mayor.",
+                    "C) Romper enlaces y formar enlaces son procesos que no consumen ni liberan energía.",
+                    "D) La energía liberada proviene exclusivamente del calor del ambiente."
+                ],
+                correct: 1,
+                exp: "Romper enlaces químicos siempre requiere energía. La liberación neta de energía en la respiración celular ocurre porque la formación de enlaces en CO₂ y H₂O libera más energía."
+            },
+            {
+                q: "3. ¿En qué se diferencia la respiración pulmonar/organísmica de la respiración celular?",
+                options: [
+                    "A) Son exactamente el mismo proceso mecánico de entrada y salida de aire.",
+                    "B) La pulmonar es el intercambio gaseoso macroscópico; la celular es el proceso químico bioquímico en las células para transformar energía.",
+                    "C) La respiración celular ocurre únicamente en las plantas durante la noche.",
+                    "D) La respiración pulmonar produce moléculas de glucosa en los bronquios."
+                ],
+                correct: 1,
+                exp: "La respiración pulmonar abastece O₂ y elimina CO₂ a nivel de órgano, mientras que la respiración celular es la reacción química mitocondrial que genera ATP."
+            },
+            {
+                q: "4. ¿Cuáles son los reactivos principales y los productos de la respiración celular aerobia?",
+                options: [
+                    "A) Reactivos: CO₂ + H₂O ➔ Productos: Glucosa + O₂.",
+                    "B) Reactivos: Glucosa + O₂ ➔ Productos: CO₂ + H₂O + Energía (ATP y calor).",
+                    "C) Reactivos: Nitrógeno + ATP ➔ Productos: Glucosa + Luz.",
+                    "D) Reactivos: Lípidos + CO₂ ➔ Productos: Oxígeno puro."
+                ],
+                correct: 1,
+                exp: "La glucosa reacciona con el oxígeno produciendo dióxido de carbono, agua y energía utilizable (ATP y calor)."
+            },
+            {
+                q: "5. ¿Cuál es el papel fundamental de la molécula de ATP (Adenosín Trifosfato) en las células?",
+                options: [
+                    "A) Es una forma de energía pura sin masa ni átomos.",
+                    "B) Es una molécula química que almacena y transporta energía utilizable para las funciones celulares y el trabajo muscular.",
+                    "C) Es el gas que se expulsa durante la exhalación pulmonar.",
+                    "D) Es una hormona que regula el color de la piel."
+                ],
+                correct: 1,
+                exp: "El ATP es una molécula que actúa como transportador de energía química disponible para los procesos biológicos."
+            },
+            {
+                q: "6. En las células eucariotas, ¿en qué organelo ocurre la mayor parte de las etapas de la respiración celular para producir ATP?",
+                options: [
+                    "A) En el Núcleo celular.",
+                    "B) En el Ribosoma.",
+                    "C) En la Mitocondria.",
+                    "D) En la Pared celular."
+                ],
+                correct: 2,
+                exp: "Las mitocondrias son las 'centrales energéticas' de las células eucariotas donde se realiza la respiración celular."
+            },
+            {
+                q: "7. ¿Cuáles son las tres etapas de la respiración celular descritas en las fuentes oficiales?",
+                options: [
+                    "A) Digestión, Filtración y Evaporación.",
+                    "B) Glucólisis, Ciclo de Krebs y Cadena de transporte de electrones.",
+                    "C) Inhalación, Exhalación y Transpiración.",
+                    "D) Fotosíntesis, Fermentación y Radiación."
+                ],
+                correct: 1,
+                exp: "Las tres etapas son la Glucólisis (citosol), el Ciclo de Krebs (matriz mitocondrial) y la Cadena de transporte de electrones."
+            },
+            {
+                q: "8. Durante una actividad física intensa, ¿por qué se incrementa la tasa de respiración celular en los músculos?",
+                options: [
+                    "A) Porque los músculos necesitan destruir la energía sobrante.",
+                    "B) Porque el trabajo muscular requiere un consumo acelerado de ATP, demandando más glucosa y oxígeno.",
+                    "C) Porque la piel necesita absorber más luz solar.",
+                    "D) Porque los pulmones se llenan de nitrógeno."
+                ],
+                correct: 1,
+                exp: "La contracción muscular consume ATP rápidamente, por lo que las células aceleran la respiración celular para sintetizar más ATP."
+            },
+            {
+                q: "9. ¿Cómo se relaciona la energía liberada en la respiración celular con la temperatura corporal en mamíferos y aves (endotermos)?",
+                options: [
+                    "A) La respiración celular no genera calor en ningún organismo.",
+                    "B) Una fracción de la energía liberada se disipa como calor, lo que permite mantener la temperatura corporal constante a pesar de la pérdida hacia el entorno.",
+                    "C) El cuerpo se enfría completamente cuando aumenta la respiración celular.",
+                    "D) El calor corporal proviene únicamente del sol directo."
+                ],
+                correct: 1,
+                exp: "Parte de la energía liberada en las reacciones celulares es energía térmica que regula la homeostasis de la temperatura corporal."
+            },
+            {
+                q: "10. Si el entorno ambiental es muy frío, ¿qué respuesta metabólica experimenta el organismo endotermo?",
+                options: [
+                    "A) Disminuye su tasa metabólica a cero.",
+                    "B) Incrementa su tasa metabólica para producir más calor y compensar la transferencia hacia el ambiente.",
+                    "C) Deja de consumir oxígeno por completo.",
+                    "D) Convierte toda su glucosa en agua pura."
+                ],
+                correct: 1,
+                exp: "Para mantener la homeostasis térmica en ambientes fríos, el organismo aumenta su tasa metabólica y genera más calor."
+            }
+        ];
+
+        let quizUserAnswers = new Array(10).fill(null);
+        let currentQuizIndex = 0;
+        let quizSubmitted = false;
+
+        window.onload = function() {
+            loadSavedState();
+            renderQuizNav();
+            renderQuizQuestion(0);
+        };
+
+        function startSession() {
+            const name = document.getElementById('inputName').value.trim();
+            const group = document.getElementById('inputGroup').value.trim();
+
+            if (!name || !group) {
+                alert("Por favor escribe tu Nombre Completo y Grupo para comenzar.");
+                return;
+            }
+
+            studentName = name;
+            studentGroup = group;
+            startActiveTimer();
+            goToStep(1);
+            saveState();
+        }
+
+        function startActiveTimer() {
+            if (timerInterval) return;
+            timerInterval = setInterval(() => {
+                if (!document.hidden && currentStep > 0 && currentStep < 7) {
+                    activeTimeSeconds++;
+                    updateTimerDisplay();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const mins = Math.floor(activeTimeSeconds / 60);
+            const secs = activeTimeSeconds % 60;
+            const str = `Tiempo Activo: ${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            document.getElementById('timerDisplay').innerText = str;
+        }
+
+        function goToStep(stepNum) {
+            document.querySelectorAll('.step-container').forEach(el => el.classList.remove('active'));
+            document.getElementById(`step${stepNum}`).classList.add('active');
+            currentStep = stepNum;
+
+            const percent = Math.round((stepNum / 7) * 100);
+            document.getElementById('progressBar').style.width = `${percent}%`;
+            
+            const stepLabels = [
+                "Inicio", "1. Engancha", "2. Explora", "3. Comprende", 
+                "4. Organiza", "5. Aplica", "6. Comprueba", "7. Evidencia"
+            ];
+            document.getElementById('stepText').innerText = stepLabels[stepNum] || "";
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            saveState();
+        }
+
+        function useHint(hintText) {
+            hintsUsed++;
+            alert(`💡 PISTA:\n\n${hintText}`);
+            saveState();
+        }
+
+        function selectEngageStep(stepId) {
+            document.querySelectorAll('.path-step').forEach(c => c.classList.remove('selected'));
+            document.getElementById(`pstep${stepId}`).classList.add('selected');
+
+            const descs = [
+                "<strong>🍎 1. Consumo de Alimentos:</strong> Al ingerir materia orgánica (como carbohidratos), obtenemos nutrientes que almacenan energía química en sus enlaces moleculares.",
+                "<strong>🧪 2. Moléculas de Glucosa:</strong> El sistema digestivo degrada los alimentos en moléculas aprovechables como la glucosa (C₆H₁₂O₆), distribuidas por la sangre a todas las células.",
+                "<strong>⚙️ 3. Respiración Celular:</strong> En las mitocondrias, la glucosa reacciona con el oxígeno (O₂) liberando CO₂, H₂O y sintetizando ATP.",
+                "<strong>🏃 4. Trabajo Muscular:</strong> Las fibras musculares consumen ATP para contraerse y generar movimiento mecánico corporal.",
+                "<strong>🔥 5. Calor Corporal:</strong> Una parte sustancial de la energía liberada en las reacciones se disipa como calor, manteniendo la temperatura del cuerpo estable."
+            ];
+            document.getElementById('engageStepDesc').innerHTML = descs[stepId - 1];
+        }
+
+        function checkEngage(optIndex, elem) {
+            const fb = document.getElementById('fbEngage');
+            const opts = document.querySelectorAll('#optsEngage .option-card');
+            opts.forEach(o => o.classList.remove('selected', 'correct', 'incorrect'));
+            elem.classList.add('selected');
+
+            if (optIndex === 2) {
+                elem.classList.add('correct');
+                fb.className = "feedback-box show correct";
+                fb.innerHTML = "✅ <strong>¡CORRECTO!</strong> Las células transforman la energía química de la glucosa en la respiración celular, produciendo ATP para trabajo muscular y liberando calor corporal.";
+            } else {
+                elem.classList.add('incorrect');
+                formativeErrors++;
+                fb.className = "feedback-box show incorrect";
+                fb.innerHTML = "❌ <strong>Necesita revisión:</strong> Los organismos no usan fuego interno ni fotosíntesis directa. Piensa en el proceso metabólico celular.";
+            }
+            saveState();
+        }
+
+        function selectRespChip(elem, text) {
+            document.querySelectorAll('#chipBankResp .chip').forEach(c => c.classList.remove('selected'));
+            elem.classList.add('selected');
+            selectedRespChipText = text;
+            selectedRespChipElem = elem;
+        }
+
+        function assignRespSlot(slotElem, expectedVal) {
+            if (!selectedRespChipText) {
+                alert("Primero toca un concepto del banco superior.");
+                return;
+            }
+            slotElem.innerText = selectedRespChipText;
+            slotElem.dataset.userVal = selectedRespChipText;
+            slotElem.dataset.expectedVal = expectedVal;
+            slotElem.classList.add('filled');
+        }
+
+        function checkRespMatching() {
+            const slots = [
+                document.getElementById('slotRespOrg'),
+                document.getElementById('slotRespCel')
+            ];
+
+            let allCorrect = true;
+            slots.forEach(s => {
+                if (s.dataset.userVal === s.dataset.expectedVal) {
+                    s.className = "slot filled correct-slot";
+                } else {
+                    s.className = "slot filled incorrect-slot";
+                    allCorrect = false;
+                }
+            });
+
+            const fb = document.getElementById('fbResp');
+            if (allCorrect) {
+                fb.className = "feedback-box show correct";
+                fb.innerHTML = "✅ <strong>¡Excelente!</strong> Has diferenciado correctamente la respiración pulmonar (intercambio gaseoso organísmico) de la respiración celular (reacción química mitocondrial).";
+            } else {
+                formativeErrors++;
+                fb.className = "feedback-box show incorrect";
+                fb.innerHTML = "❌ <strong>Revisa la asignación:</strong> La respiración pulmonar es el proceso en los pulmones y la celular es la reacción en la mitocondria.";
+            }
+            saveState();
+        }
+
+        function triggerChemicalReaction() {
+            const reactGroup = document.getElementById('simReactants');
+            const prodGroup = document.getElementById('simProducts');
+            const status = document.getElementById('sim2Status');
+
+            reactGroup.setAttribute('opacity', '0.4');
+            prodGroup.setAttribute('opacity', '1');
+            status.innerHTML = "⚡ <strong>REACCIÓN COMPLETADA:</strong> Se rompieron los enlaces iniciales y se formaron CO₂ y H₂O, liberando <strong>ATP</strong> para la célula y <strong>Calor</strong> para el cuerpo.";
+
+            setTimeout(() => {
+                reactGroup.setAttribute('opacity', '1');
+            }, 2500);
+        }
+
+        function selectChip(elem, text) {
+            document.querySelectorAll('#chipBankMol .chip').forEach(c => c.classList.remove('selected'));
+            elem.classList.add('selected');
+            selectedChipText = text;
+            selectedChipElem = elem;
+        }
+
+        function assignSlot(slotElem, expectedVal) {
+            if (!selectedChipText) {
+                alert("Primero toca una molécula del banco superior.");
+                return;
+            }
+            slotElem.innerText = selectedChipText;
+            slotElem.dataset.userVal = selectedChipText;
+            slotElem.dataset.expectedVal = expectedVal;
+            slotElem.classList.add('filled');
+        }
+
+        function checkMolMatching() {
+            const slots = [
+                document.getElementById('slotGlu'),
+                document.getElementById('slotO2'),
+                document.getElementById('slotATP'),
+                document.getElementById('slotCO2')
+            ];
+
+            let allCorrect = true;
+            slots.forEach(s => {
+                if (s.dataset.userVal === s.dataset.expectedVal) {
+                    s.className = "slot filled correct-slot";
+                } else {
+                    s.className = "slot filled incorrect-slot";
+                    allCorrect = false;
+                }
+            });
+
+            const fb = document.getElementById('fbMol');
+            if (allCorrect) {
+                fb.className = "feedback-box show correct";
+                fb.innerHTML = "✅ <strong>¡Excelente!</strong> Has asociado perfectamente cada molécula con su función en la respiración celular.";
+            } else {
+                formativeErrors++;
+                fb.className = "feedback-box show incorrect";
+                fb.innerHTML = "❌ <strong>Hay casillas incorrectas:</strong> Revisa las marcadas en rojo y vuelve a intentar.";
+            }
+            saveState();
+        }
+
+        function highlightMitoStage() {
+            const txt = document.getElementById('simMitoText');
+            txt.innerHTML = "🔥 <strong>MITOCONDRIA ACTIVADA:</strong> Aquí ocurren el <i>Ciclo de Krebs</i> y la <i>Cadena de Transporte de Electrones</i>, produciendo la mayor cantidad de ATP celular.";
+        }
+
+        function checkATP(optIndex, elem) {
+            const fb = document.getElementById('fbATP');
+            const opts = document.querySelectorAll('#optsATP .option-card');
+            opts.forEach(o => o.classList.remove('selected', 'correct', 'incorrect'));
+            elem.classList.add('selected');
+
+            if (optIndex === 2) {
+                elem.classList.add('correct');
+                fb.className = "feedback-box show correct";
+                fb.innerHTML = "✅ <strong>¡CORRECTO!</strong> El ATP (Adenosín Trifosfato) es una molécula química real que almacena y transfiere energía en sus enlaces para ser utilizada por las células.";
+            } else {
+                elem.classList.add('incorrect');
+                formativeErrors++;
+                fb.className = "feedback-box show incorrect";
+                fb.innerHTML = "❌ <strong>Necesita revisión:</strong> El ATP no es energía inmaterial ni es gas oxígeno; es una molécula orgánica portadora de energía.";
+            }
+            saveState();
+        }
+
+        function checkTF(qNum, userChoice) {
+            const fb = document.getElementById(`fbTF${qNum}`);
+            if (qNum === 1) {
+                if (userChoice === true) {
+                    fb.className = "feedback-box show correct";
+                    fb.innerHTML = "✅ <strong>¡Correcto!</strong> La respiración celular disipa calor que mantiene estable la temperatura corporal frente a las pérdidas al ambiente.";
+                } else {
+                    formativeErrors++;
+                    fb.className = "feedback-box show incorrect";
+                    fb.innerHTML = "❌ <strong>Incorrecto:</strong> En los endotermos, la energía térmica generada en las células compensa la pérdida constante de calor al entorno.";
+                }
+            } else if (qNum === 2) {
+                if (userChoice === false) {
+                    fb.className = "feedback-box show correct";
+                    fb.innerHTML = "✅ <strong>¡Correcto!</strong> Necesita corrección. Ningún proceso biológico es 100% eficiente; una parte considerable de la energía de la glucosa se convierte en calor.";
+                } else {
+                    formativeErrors++;
+                    fb.className = "feedback-box show incorrect";
+                    fb.innerHTML = "❌ <strong>Revisa la afirmación:</strong> De acuerdo con las leyes de la termodinámica, parte de la energía siempre se disipa como energía térmica.";
+                }
+            }
+            saveState();
+        }
+
+        function selectMapChip(elem, text) {
+            document.querySelectorAll('#mapBank .chip').forEach(c => c.classList.remove('selected'));
+            elem.classList.add('selected');
+            selectedMapChipText = text;
+            selectedMapChipElem = elem;
+        }
+
+        function assignMapSlot(slotElem, expectedText) {
+            if (!selectedMapChipText) {
+                alert("Primero selecciona un concepto del banco superior.");
+                return;
+            }
+            slotElem.innerText = `${slotElem.innerText.split('➔')[0]} ➔ [ ${selectedMapChipText} ]`;
+            slotElem.dataset.userVal = selectedMapChipText;
+            slotElem.dataset.expectedVal = expectedText;
+            slotElem.classList.add('filled');
+        }
+
+        function checkConceptMap() {
+            let correctCount = 0;
+            for (let i = 1; i <= 6; i++) {
+                const slot = document.getElementById(`mapSlot${i}`);
+                if (slot.dataset.userVal === slot.dataset.expectedVal) {
+                    slot.className = "slot filled correct-slot";
+                    correctCount++;
+                } else {
+                    slot.className = "slot filled incorrect-slot";
+                }
+            }
+
+            const fb = document.getElementById('fbMap');
+            if (correctCount === 6) {
+                fb.className = "feedback-box show correct";
+                fb.innerHTML = "✅ <strong>¡Mapa Conceptual Impecable!</strong> Has integrado perfectamente los conceptos de reacciones químicas, respiración celular, ATP, músculo y temperatura corporal.";
+            } else {
+                formativeErrors++;
+                fb.className = "feedback-box show incorrect";
+                fb.innerHTML = `⚠️ <strong>Has acertado ${correctCount} de 6.</strong> Ajusta las casillas marcadas en rojo para completar la red.`;
+            }
+            saveState();
+        }
+
+        function moveSeq(btn, dir) {
+            const item = btn.closest('.sequence-item');
+            const list = document.getElementById('seqList');
+            if (dir === -1 && item.previousElementSibling) {
+                list.insertBefore(item, item.previousElementSibling);
+            } else if (dir === 1 && item.nextElementSibling) {
+                list.insertBefore(item.nextElementSibling, item);
+            }
+        }
+
+        function checkSequence() {
+            const items = document.querySelectorAll('#seqList .sequence-item');
+            const currentOrder = Array.from(items).map(i => i.dataset.id).join('');
+            const fb = document.getElementById('fbSeq');
+
+            if (currentOrder === "1234") {
+                fb.className = "feedback-box show correct";
+                fb.innerHTML = "✅ <strong>¡Secuencia Metabólica Correcta!</strong> Inicio de trabajo muscular ➔ Consumo de ATP ➔ Incremento de O₂ y glucosa ➔ Respiración celular y disipación de calor.";
+            } else {
+                formativeErrors++;
+                fb.className = "feedback-box show incorrect";
+                fb.innerHTML = "❌ <strong>Secuencia incorrecta:</strong> Ajusta el orden en función de la causa y efecto del ejercicio muscular.";
+            }
+            saveState();
+        }
+
+        function checkCalc1() {
+            const val = document.getElementById('inputCalc1').value.trim();
+            const fb = document.getElementById('fbCalc1');
+
+            if (val === "60" || val === "60%" || val === "60 %") {
+                fb.className = "feedback-box show correct";
+                fb.innerHTML = "✅ <strong>¡Cálculo Correcto!</strong> (60 J de calor / 100 J totales) × 100 = <strong>60%</strong> disipado como energía térmica.";
+            } else {
+                formativeErrors++;
+                fb.className = "feedback-box show incorrect";
+                fb.innerHTML = "❌ <strong>Revisa tu cálculo:</strong> Divide 60 entre 100. El resultado es 60%.";
+            }
+            saveState();
+        }
+
+        function renderQuizNav() {
+            const grid = document.getElementById('quizNavGrid');
+            grid.innerHTML = "";
+            for (let i = 0; i < 10; i++) {
+                const btn = document.createElement('button');
+                btn.className = `quiz-nav-btn ${i === currentQuizIndex ? 'active' : ''} ${quizUserAnswers[i] !== null ? 'answered' : ''}`;
+                btn.innerText = i + 1;
+                btn.onclick = () => {
+                    currentQuizIndex = i;
+                    renderQuizQuestion(i);
+                    renderQuizNav();
+                };
+                grid.appendChild(btn);
+            }
+
+            const allAnswered = quizUserAnswers.every(a => a !== null);
+            const submitBtn = document.getElementById('btnSubmitQuiz');
+            if (allAnswered && !quizSubmitted) {
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = '1';
+            }
+        }
+
+        function renderQuizQuestion(idx) {
+            const box = document.getElementById('quizQuestionBox');
+            const qData = quizQuestions[idx];
+
+            let html = `<h3>${qData.q}</h3><div style="margin-top:12px;">`;
+
+            qData.options.forEach((optText, optIdx) => {
+                let isSelected = quizUserAnswers[idx] === optIdx;
+                let cardClass = "option-card";
+                if (isSelected) cardClass += " selected";
+
+                if (quizSubmitted) {
+                    if (optIdx === qData.correct) cardClass += " correct";
+                    else if (isSelected) cardClass += " incorrect";
+                }
+
+                html += `
+                    <div class="${cardClass}" onclick="selectQuizOption(${idx}, ${optIdx})">
+                        <span>${optText}</span>
+                    </div>
+                `;
+            });
+
+            html += `</div>`;
+
+            if (quizSubmitted) {
+                html += `
+                    <div class="feedback-box show correct" style="margin-top:12px;">
+                        💡 <strong>Explicación:</strong> ${qData.exp}
+                    </div>
+                `;
+            }
+
+            box.innerHTML = html;
+
+            document.getElementById('btnQuizPrev').disabled = (idx === 0);
+            document.getElementById('btnQuizNext').disabled = (idx === 9);
+        }
+
+        function selectQuizOption(qIdx, optIdx) {
+            if (quizSubmitted) return;
+            quizUserAnswers[qIdx] = optIdx;
+            renderQuizQuestion(qIdx);
+            renderQuizNav();
+            saveState();
+        }
+
+        function navQuiz(dir) {
+            currentQuizIndex += dir;
+            if (currentQuizIndex < 0) currentQuizIndex = 0;
+            if (currentQuizIndex > 9) currentQuizIndex = 9;
+            renderQuizQuestion(currentQuizIndex);
+            renderQuizNav();
+        }
+
+        function submitQuiz() {
+            quizSubmitted = true;
+            let correctCount = 0;
+            quizQuestions.forEach((q, i) => {
+                if (quizUserAnswers[i] === q.correct) correctCount++;
+            });
+
+            renderQuizQuestion(currentQuizIndex);
+            renderQuizNav();
+            document.getElementById('btnSubmitQuiz').disabled = true;
+
+            alert(`✅ EVALUACIÓN P14 FINALIZADA\n\nResultado: ${correctCount} / 10 aciertos (${correctCount * 10}%).`);
+            goToStep(7);
+        }
+
+        function validateReflection() {
+            const text = document.getElementById('reflectionText').value;
+            const len = text.length;
+            document.getElementById('reflectionLength').innerText = `${len} / 30 caracteres`;
+            const btn = document.getElementById('btnGenerateCard');
+            btn.disabled = (len < 30);
+        }
+
+        function getQualitativeLevel(score) {
+            if (score === 10) return "Excelente";
+            if (score >= 8) return "Muy buen dominio";
+            if (score === 7) return "Buen dominio";
+            if (score === 6) return "En proceso";
+            return "Requiere reforzamiento";
+        }
+
+        function generateEvidenceCard() {
+            let correctCount = 0;
+            quizQuestions.forEach((q, i) => {
+                if (quizUserAnswers[i] === q.correct) correctCount++;
+            });
+
+            const scorePercent = correctCount * 10;
+            const mins = Math.floor(activeTimeSeconds / 60);
+            const secs = activeTimeSeconds % 60;
+            const timeStr = `${mins} min ${secs.toString().padStart(2, '0')} s`;
+            const timeCompact = `${mins}:${secs.toString().padStart(2, '0')}`;
+
+            const perc1 = document.getElementById('perc1').value;
+            const perc2 = document.getElementById('perc2').value;
+            const reflection = document.getElementById('reflectionText').value;
+
+            document.getElementById('evName').innerText = studentName;
+            document.getElementById('evGroup').innerText = studentGroup;
+            document.getElementById('evScore').innerText = `${correctCount} / 10 (${scorePercent}%)`;
+            document.getElementById('evLevel').innerText = getQualitativeLevel(correctCount);
+            document.getElementById('evTime').innerText = timeStr;
+            document.getElementById('evErrors').innerText = formativeErrors;
+            document.getElementById('evHints').innerText = hintsUsed;
+            document.getElementById('evPerception').innerText = `C: ${perc1}/4 | A: ${perc2}/4`;
+            
+            const now = new Date();
+            document.getElementById('evDate').innerText = now.toLocaleString('es-MX');
+            document.getElementById('evReflection').innerText = `"${reflection}"`;
+
+            // LÍNEA COMPACTA DE REGISTRO ESTÁNDAR P11-P16
+            const compactLine = `📊 REGISTRO DE ACTIVIDAD: P14 | ${correctCount}/10 | ${scorePercent}% | ${timeCompact} | IC:${formativeErrors} | P:${hintsUsed} | C:${perc1}/4 | A:${perc2}/4`;
+            document.getElementById('evCompactLine').innerText = compactLine;
+
+            document.getElementById('evidenceDisplayContainer').style.display = 'block';
+            window.scrollTo({ top: document.getElementById('evidenceDisplayContainer').offsetTop, behavior: 'smooth' });
+            saveState();
+        }
+
+        function reviewQuizAnswers() {
+            goToStep(6);
+        }
+
+        function saveState() {
+            try {
+                const data = {
+                    studentName,
+                    studentGroup,
+                    currentStep,
+                    activeTimeSeconds,
+                    formativeErrors,
+                    hintsUsed,
+                    quizUserAnswers,
+                    quizSubmitted,
+                    reflectionText: document.getElementById('reflectionText')?.value || "",
+                    perc1: document.getElementById('perc1')?.value || "3",
+                    perc2: document.getElementById('perc2')?.value || "4"
+                };
+                localStorage.setItem('progresion14_app_state', JSON.stringify(data));
+            } catch(e) {
+                console.warn("LocalStorage no disponible, funcionando en memoria de sesión.", e);
+            }
+        }
+
+        function loadSavedState() {
+            try {
+                const saved = localStorage.getItem('progresion14_app_state');
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    if (data.studentName) {
+                        studentName = data.studentName;
+                        document.getElementById('inputName').value = studentName;
+                    }
+                    if (data.studentGroup) {
+                        studentGroup = data.studentGroup;
+                        document.getElementById('inputGroup').value = studentGroup;
+                    }
+                    if (data.activeTimeSeconds) activeTimeSeconds = data.activeTimeSeconds;
+                    if (data.formativeErrors) formativeErrors = data.formativeErrors;
+                    if (data.hintsUsed) hintsUsed = data.hintsUsed;
+                    if (data.quizUserAnswers) quizUserAnswers = data.quizUserAnswers;
+                    if (data.quizSubmitted) quizSubmitted = data.quizSubmitted;
+                    if (data.reflectionText) document.getElementById('reflectionText').value = data.reflectionText;
+
+                    updateTimerDisplay();
+                }
+            } catch(e) {
+                console.warn("Error al cargar estado almacenado:", e);
+            }
+        }
+    </script>
+</body>
+</html>
